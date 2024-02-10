@@ -1,70 +1,37 @@
 ---
-import '../styles/libraries/fire.scss'
-
 import '../styles/globals.scss'
 import '../styles/root.scss'
 
-import Header from '../components/header.astro'
-import Sidebar from '../components/sidebar.astro'
+var sName = 'TheGPTs'
 
-var sName = 'Adarsh Kumar'
-var sURL = 'https://AdarshRKumar.dev'
-var logoSRC = '/logo.jpg'
-
-var { title, pTitle, classItems, inlineStyles } = Astro.props;
+var { title, pTitle } = Astro.props;
 
 if (!!pTitle === false) pTitle = title
-title = `${title} | ${sName}`
-
 if (!!pTitle === false) pTitle = 'Home'
-if (pTitle === 'Home') {
-  title = title.split(' | ')[1]
+
+if (pTitle !== 'Home') {
+    title = `${title} | ${sName}`
 }
 
-if (!!classItems === false) classItems = ''
-
-var className = `${classItems} main-content`
-if (className.startsWith(' ')) className = className.substring(1)
-
 ---
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+	<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title}</title>
-    <base href={sURL} />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
     <link rel="icon" href="/favicon.png">
-    <link href="https://firecss.hecker40.repl.co/fire.css" rel="stylesheet" type="text/css"/>
-    <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=625cc7f8cb9e7d001955b4a3&product=sop' async='async'></script>
-  </head>
-  <body>
-    <Header logo={logoSRC} />
-    <div class="wrapper">
-      <main id="content">
-        <h1 class="page-title">{pTitle}</h1>
-        <div class={className} style={inlineStyles}>
-          <slot />
-        </div>
-      </main>
-      <Sidebar />
-    </div>
+	</head>
+	<body>
+    <Header />
+    <main class="main">
+        <slot>Hi</slot>
+    </main>
+    <Footer />
     <script src="/main.js" is:inline></script>
-    <script src="/eruda.js" is:inline></script>
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-      var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-      (function(){
-        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-        s1.async=true;
-        s1.src='https://embed.tawk.to/613695e4d6e7610a49b3f5bc/1feujj12b';
-        s1.charset='UTF-8';
-        s1.setAttribute('crossorigin','*');
-        s0.parentNode.insertBefore(s1,s0);
-      })();
-    </script>
-    <!--End of Tawk.to Script-->
+    <!-- <script src="/eruda.js" is:inline></script> -->
   </body>
 </html>

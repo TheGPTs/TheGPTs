@@ -1,0 +1,49 @@
+---
+import '../styles/components/header.scss'
+
+var { logo } = Astro.props
+
+---
+<header id="header">
+    <a class="logo" href="/" style={`background-image: url('${logo}');`}></a>
+    <nav class="nav">
+        <button onclick="goToUrl(this)" data-href="/">Home</button>
+        <button onclick="goToUrl(this)" data-href="/about">About</button>
+        <button onclick="goToUrl(this)" data-href="/contact">Contact</button>
+        <button onclick="goToUrl(this)" data-href="/portfolio">Portfolio</button>
+        <button onclick="goToUrl(this)" data-href="/projects">Projects</button>
+        <button onclick="goToUrl(this)" data-href="https://blog.adarshkumar.dev" data-target="_blank">Blog</button>
+        <!-- <button onclick="goToUrl(this)" data-href="/sites">Sites</button> -->
+        <button onclick="goToUrl(this)" data-href="/videos">Videos</button>
+    </nav>
+</header>
+<script is:inline>
+    function goToUrl(btn) {
+        var link = btn
+        var target = '_self'
+        if (typeof link !== 'string') {
+            link = btn.getAttribute('data-href')
+            target = btn.getAttribute('data-target')
+        }
+        if (target === '_blank') {
+            window.open(link)
+        }
+        else if (target === '_parent') {
+            parent.location.href = link
+        }
+        else if (target === '_top') {
+            top.location.href = link
+        }
+        else if (!!target) {
+            if (target.startsWith('_') === false) {
+                document.getElementById(target).src = link
+            }
+            else {
+                location.href = link
+            }
+        }
+        else {
+            location.href = link
+        }
+    }
+</script>
